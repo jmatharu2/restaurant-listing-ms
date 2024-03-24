@@ -50,7 +50,7 @@ pipeline {
 					
                         //script: "echo '${response}' | jq -r '.component.measures[0].value'",
                         //returnStdout: true
-                        script: "echo '${response}'
+                        script: "echo '${response}'"
 					)
 					//.trim().toDouble()
 
