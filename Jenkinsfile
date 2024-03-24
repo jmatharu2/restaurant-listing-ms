@@ -70,6 +70,31 @@ pipeline {
           sh 'docker push jmatharu2/restaurant-listing-service:${VERSION}'
       }
     } 
+	
+	stage('Cleanup Workspace') {
+      steps {
+        deleteDir()
+       
+      }
+    }
+	
+	stage('Update Image Tag in GitOps') {
+      steps {
+         checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[ credentialsId: 'git-ssh', url: 'git@github.com:jmatharu2/restaurant-listing-ms.git']])
+        script {
+       sh '''
+          sed -i "s/image:.*/image: jmatharu2\\/restaurant-listing-service:${VERSION}/" aws/restaurant-manifest.yml
+        '''
+          sh 'git checkout master'
+          sh 'git add .'
+          sh 'git commit -m "Update image tag"'
+        sshagent(['git-ssh'])
+            {
+                  sh('git push')
+            }
+        }
+      }
+    }
 
   }
 
