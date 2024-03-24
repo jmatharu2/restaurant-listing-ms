@@ -19,15 +19,13 @@ public class RestaurantController {
     RestaurantService restaurantService;
 
 
-    
+   
     @GetMapping("/fetchAllRestaurants")
     public ResponseEntity<List<RestaurantDTO>> fetchAllRestaurants(){
         List<RestaurantDTO> allRestaurants = restaurantService.findAllRestaurants();
         return new ResponseEntity<>(allRestaurants, HttpStatus.OK);
     }
-
-
-
+	
     @PostMapping("/addRestaurant")
     public ResponseEntity<RestaurantDTO> saveRestaurant(@RequestBody RestaurantDTO restaurantDTO) {
         RestaurantDTO restaurantAdded = restaurantService.addRestaurantInDB(restaurantDTO);
