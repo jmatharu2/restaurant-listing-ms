@@ -54,13 +54,11 @@ pipeline {
 					)
 					.trim().toDouble()
 
-                    /*
                     echo "Coverage: ${coverage}"
 
                     if (coverage < coverageThreshold) {
                         error "Coverage is below the threshold of ${coverageThreshold}%. Aborting the pipeline."
                     }
-					*/
                 }
             }
         } 
