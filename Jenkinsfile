@@ -62,6 +62,14 @@ pipeline {
                 }
             }
         } 
+		
+	stage('Docker Build and Push') {
+      steps {
+          sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+          sh 'docker build -t jmatharu2/restaurant-listing-service:${VERSION} .'
+          sh 'docker push jmatharu2/restaurant-listing-service:${VERSION}'
+      }
+    } 
 
   }
 
